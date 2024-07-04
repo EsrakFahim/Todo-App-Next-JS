@@ -2,8 +2,14 @@ import getAllTodos from "@/app/lib/getAllTodos";
 import Link from "next/link";
 import React from "react";
 
+export const metadata = {
+      title: "Complete Task",
+      description: "This is the complete task page",
+};
+
 const page = async () => {
       const task = await getAllTodos("complete");
+      
 
       return (
             <div>
@@ -15,13 +21,14 @@ const page = async () => {
                               </h1>
                         )}
                         {task.map((item) => (
-                              <div
+                              <Link
                                     key={item?._id}
                                     className="bg-gray-100 p-4 my-2 flex justify-between items-center"
+                                    href={`/task/complete/${item?._id}`}
                               >
-                                    <Link href={`/task/${item?._id}`}>
+                                    <div>
                                           <h2 className="text-2xl text-green-500">
-                                                {item?.title}
+                                                {item?.task}
                                           </h2>
                                           <p>{item?.description}</p>
                                           <p>Task Add date:{item?.date}</p>
@@ -29,8 +36,8 @@ const page = async () => {
                                                 Task Complete date:
                                                 {item?.completeDate}
                                           </p>
-                                    </Link>
-                              </div>
+                                    </div>
+                              </Link>
                         ))}
                   </div>
             </div>
